@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mon-projet-angular';
+  isAuth = false;
+  deviceOne = 'washing machine';
+  deviceTwo = 'laptop';
+  deviceThree = 'smartphone';
+
+  constructor() {
+    setTimeout(
+      () => {
+      this.isAuth = true;
+    }, 4000);
+  }
+
+  onSwitchOn(){
+    console.log('switch on all devices!');
+  }
 }
