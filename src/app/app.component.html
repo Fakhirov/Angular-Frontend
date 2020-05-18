@@ -3,9 +3,11 @@
     <div class="col-xs-12">
       <h2>My devices</h2>
       <ul class="list-group">
-        <app-device [deviceName]=deviceOne [status]="'switched-off'"></app-device>
-        <app-device [deviceName]=deviceTwo [status]="'switched-on'"></app-device>
-        <app-device [deviceName]=deviceThree [status]="'switched-off'"></app-device>
+        <app-device *ngFor="let dev of devices"
+                    [deviceName]=dev.name
+                    [status]=dev.status>
+        </app-device>
+
       </ul>
       <button type="button" class="btn btn-success"
               [disabled] = !isAuth

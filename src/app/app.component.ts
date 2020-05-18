@@ -8,9 +8,20 @@ import {timeout} from 'rxjs/operators';
 })
 export class AppComponent {
   isAuth = false;
-  deviceOne = 'washing machine';
-  deviceTwo = 'laptop';
-  deviceThree = 'smartphone';
+  devices = [
+    {
+      name: 'washing machine',
+      status: 'switched-on'
+    },
+    {
+      name: 'laptop',
+      status: 'switched-off'
+    },
+    {
+      name: 'smartphone',
+      status: 'switched-on'
+    }
+  ];
 
   constructor() {
     setTimeout(

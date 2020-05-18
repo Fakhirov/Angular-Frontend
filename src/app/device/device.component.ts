@@ -18,4 +18,12 @@ export class DeviceComponent implements OnInit {
   getStatus(){
     return this.status;
   }
+
+  getColor(){
+    if(this.status === 'switched-on'){
+      return 'green';
+    } else if(this.status === 'switched-off'){
+      return 'red';
+    }
+  }
 }
