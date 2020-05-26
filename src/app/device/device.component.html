@@ -1,10 +1,11 @@
 <ul [ngClass]="{'list-group-item': true,
                 'list-group-item-success': getStatus() === 'switched-on',
                 'list-group-item-danger': getStatus() === 'switched-off'}">
-  <li class="list-group-item">
-    <div style="width:20px;height:20px;background-color:red"
-    *ngIf="getStatus() === 'switched-on'"></div>
-    <h4 [ngStyle]="{color:getColor()}">{{deviceName}} -- status {{getStatus()}}</h4>
-    <input type="text" class="form-control"  [(ngModel)]="this.deviceName">
-  </li>
+  <h4 [ngStyle]="{color:getColor()}">{{deviceName}} -- status {{getStatus()}}</h4>
+  <button type="button" class="btn btn-success"
+          (click)="onSwitchOn()"
+          [disabled]="getStatus() === 'switched-on'">Switch-On</button>
+  <button type="button" class="btn btn-danger"
+          (click)="onSwitchOff()"
+          [disabled]="getStatus() === 'switched-off'">Switch-Off</button>
 </ul>

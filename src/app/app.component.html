@@ -4,15 +4,17 @@
       <h2>My devices</h2>
       <p>"Last update: {{lastUpdate | async | date:'short'}}"</p>
       <ul class="list-group">
-        <app-device *ngFor="let dev of devices"
+        <app-device *ngFor="let dev of devices; let i = index"
+                    [indexOfDevice]= "i"
                     [deviceName]=dev.name
                     [status]=dev.status>
         </app-device>
 
       </ul>
       <button type="button" class="btn btn-success"
-              [disabled] = !isAuth
-              (click)="onSwitchOn()">Swith-On</button>
+              (click)="onSwitchOnAll()">Switch-On</button>
+      <button type="button" class="btn btn-danger"
+              (click)="onSwitchOffAll()">Switch-Off</button>
     </div>
   </div>
 </div>

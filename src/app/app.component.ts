@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {timeout} from 'rxjs/operators';
+import {DeviceService} from './services/device.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   isAuth = false;
   lastUpdate = new Promise((resolve, reject) => {
     const date = new Date();
@@ -14,29 +15,24 @@ export class AppComponent {
       resolve(date);
     }, 2000);
   });
-  devices = [
-    {
-      name: 'washing machine',
-      status: 'switched-on'
-    },
-    {
-      name: 'laptop',
-      status: 'switched-off'
-    },
-    {
-      name: 'smartphone',
-      status: 'switched-on'
-    }
-  ];
+  devices: any[];
 
-  constructor() {
+  constructor(private deviceService: DeviceService) {
     setTimeout(
       () => {
       this.isAuth = true;
     }, 4000);
   }
 
-  onSwitchOn(){
-    console.log('switch on all devices!');
+  ngOnInit(){
+    this.devices = this.deviceService.devices;
+  }
+
+  onSwitchOnAll(){
+    this.deviceService.switchOnAll();
+  }
+
+  onSwitchOffAll(){
+    this.deviceService.switchOffAll();
   }
 }
