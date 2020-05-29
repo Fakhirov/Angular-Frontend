@@ -1,14 +1,17 @@
 export class DeviceService{
   devices = [
     {
+      id: 1,
       name: 'washing machine',
       status: 'switched-on'
     },
     {
+      id: 2,
       name: 'laptop',
       status: 'switched-off'
     },
     {
+      id: 3,
       name: 'smartphone',
       status: 'switched-on'
     }
@@ -32,5 +35,11 @@ export class DeviceService{
 
   switchOffIndex(index){
   this.devices[index].status = 'switched-off';
+  }
+
+  getDeviceById(idOfTheDevice: number){
+    console.log('getDeviceById begins');
+    const device = this.devices.find((dev) => dev.id === idOfTheDevice);
+    return device;
   }
 }

@@ -2,6 +2,7 @@
                 'list-group-item-success': getStatus() === 'switched-on',
                 'list-group-item-danger': getStatus() === 'switched-off'}">
   <h4 [ngStyle]="{color:getColor()}">{{deviceName}} -- status {{getStatus()}}</h4>
+  <a [routerLink]="[id]">Detail</a>
   <button type="button" class="btn btn-success"
           (click)="onSwitchOn()"
           [disabled]="getStatus() === 'switched-on'">Switch-On</button>
