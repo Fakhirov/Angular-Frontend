@@ -45,8 +45,20 @@ export class DeviceService{
   }
 
   getDeviceById(idOfTheDevice: number){
-    console.log('getDeviceById begins');
     const device = this.devices.find((dev) => dev.id === idOfTheDevice);
     return device;
+  }
+
+  addDevice(name: string, status: string){
+    const deviceObject = {
+      id: 0,
+      name: '',
+      status: ''
+    };
+    deviceObject.name = name;
+    deviceObject.status = status;
+    deviceObject.id = this.devices.length + 1;
+    this.devices.push(deviceObject);
+    this.emitDeviceSubject();
   }
 }
