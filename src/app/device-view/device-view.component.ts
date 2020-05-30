@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeviceService} from '../services/device.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-device-view',
   templateUrl: './device-view.component.html',
   styleUrls: ['./device-view.component.scss']
 })
-export class DeviceViewComponent implements OnInit {
+export class DeviceViewComponent implements OnInit, OnDestroy {
 
   devices: any[];
+  deviceSubscription: Subscription;
 
   lastUpdate = new Promise((resolve, reject) => {
     const date = new Date();
@@ -20,7 +22,13 @@ export class DeviceViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.devices = this.deviceService.devices;
+    this.deviceSubscription = this.deviceService.deviceSubject.subscribe(
+      (devices) => {
+        this.devices = devices;
+      }
+    );
+    this.deviceService.emitDeviceSubject();
+
   }
   onSwitchOnAll(){
     this.deviceService.switchOnAll();
@@ -28,5 +36,9 @@ export class DeviceViewComponent implements OnInit {
 
   onSwitchOffAll(){
     this.deviceService.switchOffAll();
+  }
+
+  ngOnDestroy(): void {
+    this.deviceSubscription.unsubscribe();
   }
 }

@@ -1,5 +1,9 @@
+import { Subject} from 'rxjs';
+
 export class DeviceService{
-  devices = [
+
+  deviceSubject = new Subject<any []>();
+  private devices = [
     {
       id: 1,
       name: 'washing machine',
@@ -17,6 +21,9 @@ export class DeviceService{
     }
   ];
 
+  emitDeviceSubject() {
+    this.deviceSubject.next(this.devices.slice());
+  }
   switchOnAll(){
     for (const dev of this.devices) {
       dev.status = 'switched-on';
