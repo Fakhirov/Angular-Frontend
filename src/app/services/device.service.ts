@@ -1,10 +1,13 @@
 import { Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
+@Injectable()
 export class DeviceService{
 
   deviceSubject = new Subject<any []>();
-  private devices = [
-    {
+  private devices = [];
+  /*  {
       id: 1,
       name: 'washing machine',
       status: 'switched-on'
@@ -19,8 +22,9 @@ export class DeviceService{
       name: 'smartphone',
       status: 'switched-on'
     }
-  ];
+  ];*/
 
+  constructor(private httpClient: HttpClient) { }
   emitDeviceSubject() {
     this.deviceSubject.next(this.devices.slice());
   }
@@ -60,5 +64,27 @@ export class DeviceService{
     deviceObject.id = this.devices.length + 1;
     this.devices.push(deviceObject);
     this.emitDeviceSubject();
+  }
+
+  saveDevicesTOServer(){
+    this.httpClient.put('https://test-d4d6b.firebaseio.com/devices.json', this.devices)
+      .subscribe(
+      () => {
+        console.log('Devices are saved !');
+      },
+      (error) => {
+        console.log('Error = ' + error);
+      }
+      );
+  }
+
+  getDevicesFromTheServer(){
+    this.httpClient.get<any[]>('https://test-d4d6b.firebaseio.com/devices.json')
+      .subscribe(
+        (response) => {
+          this.devices = response;
+          this.emitDeviceSubject();
+        }
+      );
   }
 }
