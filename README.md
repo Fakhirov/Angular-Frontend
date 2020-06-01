@@ -1,3 +1,9 @@
+# This project is inspired from openclassroom angular course:
+
+https://openclassrooms.com/fr/courses/4668271-developpez-des-applications-web-avec-angular
+
+It uses Firebase as backend server.
+
 # MonProjetAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
